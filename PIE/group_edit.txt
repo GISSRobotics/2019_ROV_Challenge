@@ -1,8 +1,8 @@
-ection 1
+Section 1
 
-Some stoof
+Some stuff
 
-Seection 2
+Section 2
 
 some stuff
 
