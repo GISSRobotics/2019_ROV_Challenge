@@ -2,7 +2,7 @@ ection 1
 
 Some stuff
 
-Seection 2
+Section 2
 
 some stuff
 
