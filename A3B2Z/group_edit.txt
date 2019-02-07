@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+is a lot of stuff?
+=======
 Section1
 
 Some stuuff
@@ -9,3 +12,4 @@ Som stuff
 
 mooooore
  lmaoooooo -Zama
+>>>>>>> master
