@@ -1,1 +1,15 @@
+<<<<<<< HEAD
 is a lot of stuff?
+=======
+Section1
+
+Some stuuff
+
+
+Section too
+
+Som stuff
+
+mooooore
+ lmaoooooo -Zama
+>>>>>>> master
