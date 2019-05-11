@@ -1,3 +1,5 @@
+// SELECT 328P (old bootloader) WHEN USING USB C CONVERTER!
+
 int BUZZER5 = 5;
 int BUZZER6 = 6;
 int BUZZER7 = 7;
@@ -16,7 +18,6 @@ void loop() {
   // put your main code here, to run repeatedly:
 
   beepMotors();
-  readI2C(100);
 }
 
 void beepMotors() {
