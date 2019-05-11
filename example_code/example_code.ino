@@ -43,8 +43,8 @@ void loop()
 {
   readAndSendSensorData();
 
-  
-  
+
+
 
   while (receiveMessage()){
     processReceivedMessage();
@@ -105,22 +105,22 @@ boolean receiveMessage(){
   // readStringUntil(), parseInt(), parseFloat(), read(), available()
   // return value - If there is nothing to read or some error in the format then return false
   //                If you successfully read and store a whole message return true
-  
+
   // Read until you read the start character
   while (Serial.available() && Serial.read() != '~');
-  
+
   // The following line is safe to include before you are about to read anything you expect to be there
   if(!Serial.available()) return false;
-  
-  
+
+
   // CODE HERE - read the key
-  
+
   // CODE HERE - read the data type char
-  
+
   // CODE HERE - read the value in different ways depending on the data type char.
   // You can use an if statement or look into how to use a "switch statement"
 
-  
+
   // YAY!  we got to the end which means we stored the message lets report that back
   return true;
 }
