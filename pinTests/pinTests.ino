@@ -16,6 +16,7 @@ void loop() {
   // put your main code here, to run repeatedly:
 
   beepMotors();
+  readI2C(100);
 }
 
 void beepMotors() {
