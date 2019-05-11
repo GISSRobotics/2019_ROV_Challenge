@@ -14,6 +14,11 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
+
+  beepMotors();
+}
+
+void beepMotors() {
   beep(BUZZER5, 32);
   beep(BUZZER5, 32);
   beep(BUZZER5, 32);
@@ -29,7 +34,6 @@ void loop() {
   beep(BUZZER8, 256);
   beep(BUZZER8, 256);
   beep(BUZZER8, 256);
-
 }
 
 void beep(int pin, int frequency) {
@@ -40,3 +44,10 @@ void beep(int pin, int frequency) {
   delay(frequency);  
 }
 
+void readI2C(int frequency) {
+  Serial.print("A4:");
+  Serial.println(analogRead(A4));
+  Serial.print("A5:");
+  Serial.println(analogRead(A5));
+  delay(100);
+}
