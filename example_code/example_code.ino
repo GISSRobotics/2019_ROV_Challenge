@@ -2,17 +2,21 @@
 #include <Servo.h> // Motor library
 
 // CODE HERE - Define Servo variables for each motor (ie. "Servo leftMotor;")
-Servo motorH1;
-Servo motorH2;
-Servo motorV1;
-Servo motorV2;
+Servo motor3;
+Servo motor4;
+Servo motor5;
+Servo motor6;
+
 // CODE HERE - Define pin number constants to be used (ie. "const int LED_PIN = 9;")
-int adc_id = A1;
-int NTCPin = A0;
+int servo3 = 3;
+int servo4 = 4;
+int servo5 = 5;
+int servo6 = 6;
+
 // CODE HERE - Define any other variables that you want to use everywhere (if they are 
 // only needed temporarily, define them in functions so that it doesn't take up more program memory)
 #define SERIESRESISTOR 10000;
-#define NOMINAL_RESISTANCE;
+#define NOMINAL_RESISTANCE ;
 #define NOMINAL_TEMPERATURE 25;
 #define BCOEFFICIENT 3950;
 
@@ -23,28 +27,35 @@ void setup()
   Serial.begin(9600);
 
   // CODE HERE - Initialize input and output pins
+  pinMode(3, OUTPUT);
+  pinMode(4, OUTPUT);
+  pinMode(5, OUTPUT);
+  pinMode(6, OUTPUT);
 
   // CODE HERE - Initialize starting values for outputs (ie LED on or off)
+  // NOTHING HERE
 
   // CODE HERE - Attach to Motors and initialize to default position to reset the ESC.
-
-
+  motor3.attach(3);
+  motor4.attach(4);
+  motor5.attach(5);
+  motor6.attach(6);
+  
   // CODE HERE - Initialize Serial communication.  We will be using the Serial Library for 
   // communication from topside controller so that we can debug in 
   // the Monitor or communicate with arduino
+  Serial.begin(9600);
 
   // CODE HERE - Send any starting info youd like to send to the controller (ie Robot name)
 
   // CODE HERE - Initialize I2C communication.  We will be using this to communicate with I2C
-  // sensors or other arduinos inside the ROV. 
+  // sensors or other arduinos inside the ROV.
+  Wire.begin();
 }
 
 void loop()
 {
   readAndSendSensorData();
-
-
-
 
   while (receiveMessage()){
     processReceivedMessage();
@@ -52,13 +63,14 @@ void loop()
 }
 
 void readAndSendSensorData(){
-  int value = analogRead(adc_id);
+  /*int value = analogRead(adc_id);
   float ADCvalue; 
   float Resistance; 
   ADCvalue = analogRead(NTCPin); 
   Serial.print("Analoge "); 
   // example: sendFloat("Water Depth", analogRead(DEPTH_SENSOR));
   // you can also choose to do other actions based on the values here, not just send them
+  */
 }
 
 void processReceivedMessage(){
