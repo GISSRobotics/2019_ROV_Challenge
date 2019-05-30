@@ -41,6 +41,10 @@ void setup()
   // communication from topside controller so that we can debug in 
   // the Monitor or communicate with arduino
   Serial.begin(9600);
+  resetMotor(motor5);
+  resetMotor(motor6);
+  resetMotor(motor7);
+  resetMotor(motor8);
 }
 
 void loop()
@@ -48,10 +52,7 @@ void loop()
  if (Serial.available() > 0) {
     // read the incoming byte:
     int incomingInt = Serial.parseInt();
-    if (incomingInt != 0) {
-      Serial.println(incomingInt);
-      motor5.write(incomingInt);
-    }
+    setMotorSpeedInPercent(incomingInt, motor5);
   } 
 }
 
@@ -65,12 +66,12 @@ void setMotorSpeedInPercent(int percent, Servo motor) {
   }
   if (percent > 0) {
     int scale50 = percent / 2;
-    int motorValue = 92 + scale50;
+    int motorValue = 93 + scale50;
     motor.write(motorValue); 
   }
   if (percent < 0) {
     int scale50 = percent / 2 * (-1);
-    int motorValue = 88 - scale50;
+    int motorValue = 87 - scale50;
     motor.write(motorValue);
   }
 }
