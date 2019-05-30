@@ -3,10 +3,16 @@
 
 /*
  * 90 - Initial and Not Moving
+ * ---
  * 87 - Lower Limit for Moving Backwards
+ * 52 - Backwards Range
  * 35 - Upper Limit for Moving Backwards
+ * ---
  * 93 - Lower Limit for Moving Forwards
+ * 61 - Forwards Range
  * 154 - Upper Limit for Moving Forwards
+ * ---
+ * 50 - Range 
  */
 
 // CODE HERE - Define Servo variables for each motor (ie. "Servo leftMotor;")
@@ -47,4 +53,24 @@ void loop()
       motor5.write(incomingInt);
     }
   } 
+}
+
+void resetMotor(Servo motor) {
+  motor.write(90);
+}
+
+void setMotorSpeedInPercent(int percent, Servo motor) {
+  if (percent == 0) {
+    resetMotor(motor);
+  }
+  if (percent > 0) {
+    int scale50 = percent / 2;
+    int motorValue = 92 + scale50;
+    motor.write(motorValue); 
+  }
+  if (percent < 0) {
+    int scale50 = percent / 2 * (-1);
+    int motorValue = 88 - scale50;
+    motor.write(motorValue);
+  }
 }
