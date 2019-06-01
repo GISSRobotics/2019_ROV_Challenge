@@ -6,6 +6,8 @@
 
 MS5803 sensor(ADDRESS_HIGH);
 Adafruit_LSM303_Mag_Unified mag = Adafruit_LSM303_Mag_Unified(12345);
+Adafruit_LSM303_Accel_Unified accel = Adafruit_LSM303_Accel_Unified(54321);
+
 
 float temperature_C;
 double pressure_abs;
@@ -25,6 +27,9 @@ void setup() {
   // Magnet Sensor
   mag.enableAutoRange(true);
   mag.begin();
+
+  // Accelerometer
+  accel.begin();
 
 } 
 
@@ -61,6 +66,9 @@ void loop() {
   delay(100);
 
   magnet_readings();
+  accel_readings();
+
+  delay(2000);
 }
 
 void reset() {
@@ -87,6 +95,27 @@ void magnet_readings() {
   // Serial.print("X Raw: "); Serial.print(mag.raw.x); Serial.print("  ");
   // Serial.print("Y Raw: "); Serial.print(mag.raw.y); Serial.print("  ");
   // Serial.print("Z Raw: "); Serial.print(mag.raw.z); Serial.println("");
+
+  /* Delay before the next sample */
+  delay(500);
+}
+
+void accel_readings() {
+  /* Get a new sensor event */
+  sensors_event_t event;
+  accel.getEvent(&event);
+
+  /* Display the results (acceleration is measured in m/s^2) */
+  Serial.print("X: "); Serial.print(event.acceleration.x); Serial.print("  ");
+  Serial.print("Y: "); Serial.print(event.acceleration.y); Serial.print("  ");
+  Serial.print("Z: "); Serial.print(event.acceleration.z); Serial.print("  ");Serial.println("m/s^2 ");
+
+  /* Note: You can also get the raw (non unified values) for */
+  /* the last data sample as follows. The .getEvent call populates */
+  /* the raw values used below. */
+  //Serial.print("X Raw: "); Serial.print(accel.raw.x); Serial.print("  ");
+  //Serial.print("Y Raw: "); Serial.print(accel.raw.y); Serial.print("  ");
+  //Serial.print("Z Raw: "); Serial.print(accel.raw.z); Serial.println("");
 
   /* Delay before the next sample */
   delay(500);
