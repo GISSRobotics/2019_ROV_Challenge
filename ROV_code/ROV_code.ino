@@ -63,12 +63,14 @@ void loop()
   while (receiveMessage()){
     processReceivedMessage();
   }
+
+  delay(1000);
 }
 
 void readAndSendSensorData() {
   // example: sendFloat("Water Depth", analogRead(DEPTH_SENSOR));
   sendFloat("Temperature:", readTemperature());
-  sendFloat("Pressure:", readPressure());
+  /* sendFloat("Pressure:", readPressure());
 
   sendFloat("Compass X:", readCompassX());
   sendFloat("Compass Y:", readCompassY());
@@ -77,7 +79,7 @@ void readAndSendSensorData() {
 
   sendFloat("Acceleration X:", readAccelerationX());
   sendFloat("Acceleration Y:", readAccelerationY());
-  sendFloat("Acceleration Z:", readAccelerationZ());
+  sendFloat("Acceleration Z:", readAccelerationZ()); */
 }
 
 /**************
@@ -108,7 +110,7 @@ void setMotorSpeedInPercent(int percent, Servo motor) {
  * SENSOR CODE *
  ***************/
 
-int readTemperature() {
+float readTemperature() {
   float temperature_C = sensor.getTemperature(CELSIUS, ADC_4096);
   return temperature_C;
 }
