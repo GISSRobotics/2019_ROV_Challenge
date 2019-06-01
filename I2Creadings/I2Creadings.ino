@@ -71,7 +71,7 @@ void loop() {
   delay(2000);
 }
 
-void reset() {
+void resetPressureSensor() {
   Wire.beginTransmission(0x76);
   Wire.write(0x1E);
   Wire.endTransmission();
