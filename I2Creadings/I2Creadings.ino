@@ -79,6 +79,8 @@ void magnet_readings() {
   Serial.print("Y: "); Serial.print(event.magnetic.y); Serial.print("  ");
   Serial.print("Z: "); Serial.print(event.magnetic.z); Serial.print("  ");Serial.println("uT");
 
+  Serial.print("DEGREES: "); Serial.println(atan2(event.magnetic.y, event.magnetic.x) * 180 / PI);
+
   /* Note: You can also get the raw (non unified values) for */
   /* the last data sample as follows. The .getEvent call populates */
   /* the raw values used below. */
