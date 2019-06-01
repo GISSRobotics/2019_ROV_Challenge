@@ -3,6 +3,7 @@
 
 MS5803 sensor(ADDRESS_HIGH);
 
+float temperature_C;
 double pressure_abs;
 
 void setup() {
@@ -37,6 +38,9 @@ void loop() {
   response |= (uint32_t)b;
   Serial.println(response);
   */
+
+  temperature_C = sensor.getTemperature(CELSIUS, ADC_4096);
+  Serial.println(temperature_C);
 
   pressure_abs = sensor.getPressure(ADC_4096);
   Serial.println(pressure_abs);
