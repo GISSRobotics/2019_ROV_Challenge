@@ -6,7 +6,10 @@
 #include <Servo.h> // Motor lib
 
 // Motors
-Servo motor5;
+Servo motorFL; // pin 5
+Servo motorFR; // pin 6
+Servo motorBL; // pin 7
+Servo motorBR; // pin 8
 
 // Compass Sensor
 Adafruit_LSM303_Mag_Unified mag = Adafruit_LSM303_Mag_Unified(12345);
@@ -23,8 +26,18 @@ void setup()
 {
   // Initialise Motors
   pinMode(5, OUTPUT);
-  motor5.attach(5);
-  resetMotor(motor5);
+  pinMode(6, OUTPUT);
+  pinMode(7, OUTPUT);
+  pinMode(8, OUTPUT);
+  motorFL.attach(5);
+  motorFR.attach(6);
+  motorBL.attach(7);
+  motorBR.attach(8);
+
+  resetMotor(motorFL);
+  resetMotor(motorFR);
+  resetMotor(motorBL);
+  resetMotor(motorBR);
 
   // Initialise Communications
   Serial.begin(9600);
@@ -65,17 +78,6 @@ void readAndSendSensorData() {
   sendFloat("Acceleration X:", readAccelerationX());
   sendFloat("Acceleration Y:", readAccelerationY());
   sendFloat("Acceleration Z:", readAccelerationZ());
-}
-
-void processReceivedMessage(){
-  // CODE HERE - There should be values in the variables receivedKey, received(Integer, Float & String)
-  // do whatever action you want based on that message. Example:
-  // if (receivedKey == "PS2 Button" && receivedString == "X"){
-  //     setMotorSpeed(MOTORH1, 0);
-  //     setMotorSpeed(MOTORH2, 0);
-  //     setMotorSpeed(MOTORV1, 0);
-  //     setMotorSpeed(MOTORV2, 0);
-  // }
 }
 
 /**************
@@ -200,6 +202,30 @@ int receivedInteger;
 float receivedFloat;
 String receivedString;
 
+void processReceivedMessage(){
+  // CODE HERE - There should be values in the variables receivedKey, received(Integer, Float & String)
+  // do whatever action you want based on that message. Example:
+  // if (receivedKey == "PS2 Button" && receivedString == "X"){
+  //     setMotorSpeed(MOTORH1, 0);
+  //     setMotorSpeed(MOTORH2, 0);
+  //     setMotorSpeed(MOTORV1, 0);
+  //     setMotorSpeed(MOTORV2, 0);
+  // }
+
+  if (receivedKey == "Motor FL") {
+    setMotorSpeedInPercent(receivedInteger, motorFL);
+  }
+  if (receivedKey == "Motor FR") {
+    setMotorSpeedInPercent(receivedInteger, motorFR);
+  }
+  if (receivedKey == "Motor BL") {
+    setMotorSpeedInPercent(receivedInteger, motorBL);
+  }
+  if (receivedKey == "Motor BR") {
+    setMotorSpeedInPercent(receivedInteger, motorBR);
+  }
+}
+
 boolean receiveMessage(){
   // read a message from the controller (if it exists) in the
   // proper format into the above variables
@@ -214,14 +240,21 @@ boolean receiveMessage(){
   // The following line is safe to include before you are about to read anything you expect to be there
   if(!Serial.available()) return false;
 
-
   // CODE HERE - read the key
+  String receivedKey = Serial.readStringUntil('-');
 
   // CODE HERE - read the data type char
+  String type = Serial.readStringUntil('-');
 
   // CODE HERE - read the value in different ways depending on the data type char.
   // You can use an if statement or look into how to use a "switch statement"
-
+  if (type == "S") {
+    receivedString = Serial.read();
+  } else if (type == "I") {
+    receivedInteger = Serial.parseInt();
+  } else if (type == "F") {
+    receivedFloat = Serial.parseFloat();
+  }
 
   // YAY!  we got to the end which means we stored the message lets report that back
   return true;
